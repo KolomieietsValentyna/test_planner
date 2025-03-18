@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_planner/common/widget/dialog_layout.dart';
 import 'package:test_planner/common/widget/app_button.dart';
-import 'package:test_planner/features/tasks/domain/tasks_bloc/tasks_bloc.dart';
+import 'package:test_planner/features/tasks/domain/task_cubit/task_cubit.dart';
 import 'package:test_planner/features/tasks/entity/task_model.dart';
 import 'package:test_planner/resources/constants/filter_data.dart';
 import 'package:test_planner/resources/style/app_colors.dart';
@@ -91,16 +91,14 @@ class _AddingTaskDialogState extends State<AddingTaskDialog> {
                   // Check if task is not empty
                   if (titleController.text != '' ||
                       descriptionController.text != '') {
-                    BlocProvider.of<TasksBloc>(context).add(
-                      AddTaskEvent(
-                        task: TaskModel(
-                          id: DateTime.now().toString(),
-                          title: titleController.text,
-                          description: descriptionController.text,
-                          category: dropdownValue ?? '',
-                        ),
-                      ),
-                    );
+                    context.read<TaskCubit>().addTask(
+                          TaskModel(
+                            id: DateTime.now().toString(),
+                            title: titleController.text,
+                            description: descriptionController.text,
+                            category: dropdownValue ?? '',
+                          ),
+                        );
                   }
 
                   // Close addTask pop-up

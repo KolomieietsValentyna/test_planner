@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test_planner/features/tasks/domain/tasks_bloc/tasks_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_planner/features/tasks/domain/task_cubit/task_cubit.dart';
 import 'package:test_planner/features/tasks_filter/entity/filter_dto.dart';
 import 'package:test_planner/features/tasks_filter/presentation/filter_dialog.dart';
 
@@ -14,19 +15,22 @@ mixin FilterDialogMixin<T extends StatefulWidget> on State<FilterDialog> {
   @override
   void initState() {
     super.initState();
-    filter = widget.bloc.state.filterData;
+    var state = context.read<TaskCubit>().state;
+    if(state is TasksSuccess) {
+    filter = state.filterData;
+    }
     setFilter();
   }
 
   // Function to pass current data to TasksBloc for filtering
   void saveFilters() {
-    widget.bloc.add(SetFilterEvent(filterData: getFilter()));
+    context.read<TaskCubit>().filterTasks(getFilter());
     Navigator.of(context).pop();
   }
 
   // Clear all filter data and close pop-up
   void clearFilter() {
-    widget.bloc.add(ClearFilterEvent());
+    context.read<TaskCubit>().clearFilter();
     Navigator.of(context).pop();
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_planner/features/tasks/domain/tasks_bloc/tasks_bloc.dart';
+import 'package:test_planner/features/tasks/domain/task_cubit/task_cubit.dart';
 import 'package:test_planner/features/tasks/entity/task_model.dart';
 import 'package:test_planner/resources/style/app_colors.dart';
 import 'package:test_planner/resources/style/app_sizes.dart';
@@ -53,8 +53,7 @@ class _TaskCardState extends State<TaskCard> {
                   // to rewrite it in device storage
                   checkBox = value!;
                   widget.task.changeStatus();
-                  BlocProvider.of<TasksBloc>(context)
-                      .add((ChangeStatusTaskEvent(task: widget.task)));
+                  context.read<TaskCubit>().changeStatus(widget.task);
                 },
               ),
               Flexible(
@@ -67,8 +66,7 @@ class _TaskCardState extends State<TaskCard> {
                 icon: const Icon(Icons.delete, color: AppColors.red),
                 onPressed: () {
                   // Delete task with adding DeleteTaskEvent to TasksBloc
-                  BlocProvider.of<TasksBloc>(context)
-                      .add((DeleteTaskEvent(task: widget.task)));
+                  context.read<TaskCubit>().deleteTask(widget.task);
                 },
               )
             ],

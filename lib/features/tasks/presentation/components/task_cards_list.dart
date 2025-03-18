@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_planner/features/tasks/domain/task_cubit/task_cubit.dart';
 import 'package:test_planner/features/tasks/presentation/components/task_card.dart';
-import 'package:test_planner/features/tasks/domain/tasks_bloc/tasks_bloc.dart';
 import 'package:test_planner/resources/style/app_sizes.dart';
 
 class TaskCardsList extends StatelessWidget {
@@ -10,13 +10,13 @@ class TaskCardsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: BlocBuilder<TasksBloc, TasksState>(
-        buildWhen: (previous, current) {
-          return previous.displayedTasks != current.displayedTasks;
-        },
+      child: BlocBuilder<TaskCubit, TaskState>(
+        // buildWhen: (previous, current) {
+        //   return previous.displayedTasks != current.displayedTasks;
+        // },
         builder: (context, state) {
           // If some tasks were created show list with tasks
-          if (state.displayedTasks.isNotEmpty) {
+          if (state is TasksSuccess && state.displayedTasks.isNotEmpty) {
             final tasks = state.displayedTasks;
 
             return ListView.builder(

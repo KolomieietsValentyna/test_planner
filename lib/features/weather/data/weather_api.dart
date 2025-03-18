@@ -7,7 +7,6 @@ class WeatherApi {
     _dio = Dio();
   }
 
-  // Request to third party service with registered ApiKey and current location
   Future<Response<dynamic>> weatherRequest({
     required String lat,
     required String long,

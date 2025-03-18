@@ -48,9 +48,7 @@ class _WeatherDialogState extends State<WeatherDialog> {
                     Text('Feels like: ${weather!.feelsLike}ºC'),
                     Text('Humidity ${weather!.humidity}%'),
                     Text('Wind speed: ${weather!.windSpeed} metre/sec'),
-                    Text(
-                      'Description: ${weather!.description}',
-                    ),
+                    Text('Description: ${weather!.description}'),
                   ],
                 );
               } else {

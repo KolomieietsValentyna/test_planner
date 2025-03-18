@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:test_planner/common/services/dialog_service.dart';
 import 'package:test_planner/features/tasks/presentation/adding_task_dialog.dart';
 import 'package:test_planner/features/tasks_filter/presentation/filter_dialog.dart';
 import 'package:test_planner/features/tasks/presentation/components/task_cards_list.dart';
-import 'package:test_planner/features/tasks/domain/tasks_bloc/tasks_bloc.dart';
 import 'package:test_planner/features/weather/presentation/weather_dialog.dart';
 import 'package:test_planner/common/widget/app_button.dart';
 import 'package:test_planner/resources/style/app_colors.dart';
@@ -28,13 +26,14 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Planner'),
+        backgroundColor: Colors.purple,
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_alt, color: AppColors.white),
             onPressed: () {
               DialogService().show(
                 context,
-                FilterDialog(bloc: BlocProvider.of<TasksBloc>(context)),
+                FilterDialog(),
               );
             },
           ),
